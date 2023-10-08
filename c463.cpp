@@ -3,14 +3,14 @@
 #include <algorithm>
 using namespace std;
 
-int find_len(vector<vector<int>>& f, int r, int& count) { //計算所有節點高度
+int find_len(vector<vector<int>>& f, int r, long long& count) { 
     if (f[r][0] == 0) {
         return 0;
     }
     int m1 = -1, l;
     l = f[r][0];
     for (int j = 1; j <= l; j++) {
-        int len = find_len(f, f[r][j], count) + 1; //計算節點
+        int len = find_len(f, f[r][j], count) + 1; 
         m1 = max(m1, len);
     }
     count += m1; 
@@ -18,19 +18,21 @@ int find_len(vector<vector<int>>& f, int r, int& count) { //計算所有節點�
 }
 
 int main() {
-    int n, a, r, h, count = 0;
+    int n, a, r, h,temp;
+    long long count = 0;
     cin >> n;
     vector<int> as(n + 1, 0);
-    vector<vector<int>> f(n + 1, vector<int>(n, 0));
-    for (int i = 1; i <= n; i++) {  //輸入
+    vector<vector<int>> f(n+1,vector<int>(1,0));
+    for (int i = 1; i <= n; i++) {  
         cin >> a;
         for (int j = 1; j <= a; j++) {
-            cin >> f[i][j];
+            cin >> temp;
+            f[i].push_back(temp);
             as[f[i][j]] = 1;
         }
-        f[i][0] = a; //子節點個數放在第0個
+        f[i][0] = a; 
     }
-    for (int i = 0; i < n; i++) {  //找root
+    for (int i = 0; i < n; i++) { 
         if (as[i] != 1) {
             r = i;
         }
